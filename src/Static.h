@@ -7,5 +7,5 @@ namespace global
     extern RoomManager manager;
     extern int ScreenWidth;
     extern int ScreenHeight;
-    extern bool pressedNext;
+    extern bool closed;
 }

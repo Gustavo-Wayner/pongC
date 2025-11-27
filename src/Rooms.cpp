@@ -1,9 +1,10 @@
 #include "Rooms.h"
 
 #include <raylib.h>
+
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
-#include <iostream>
+
 using namespace global;
 
 #pragma region RoomManager
@@ -24,7 +25,10 @@ void RoomManager::Update()
 #pragma endregion
 
 #pragma region MainMenu
-void MainMenu::Setup() {}
+void MainMenu::Setup()
+{
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 30);
+}
 void MainMenu::Step()
 {
     bool over = false;
@@ -34,7 +38,10 @@ void MainMenu::Step()
     if (GuiButton({GetScreenWidth() * 0.5f - 120, GetScreenHeight() * 0.5f - 30 - 50, 240, 60}, "Play"))
         switchRooms = true;
     if (GuiButton({GetScreenWidth() * 0.5f - 120, GetScreenHeight() * 0.5f - 30 + 50, 240, 60}, "Quit"))
+    {
         over = true;
+        closed = true;
+    }
     EndDrawing();
     if (switchRooms)
         manager.SwitchTo<Game>();
@@ -49,7 +56,9 @@ Game::Game() : player(Vec2{0, 0}, 0, 0), other(Vec2{0, 0}, 0, 0), ball(Vec2{0, 0
 
 void Game::Setup()
 {
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
     BackgroundColor = {50, 100, 150, 255};
+    increment = 1.5f;
     ballMaxSpeed = 20;
     difficulty = 7;
     SetRandomSeed(time(0));
@@ -89,7 +98,7 @@ void Game::Step()
         }
         if (collide(player.getNext(), ball.getNext()))
         {
-            ballSpeed.SetMagnitude(ballSpeed.Magnitude() + 1.5f);
+            ballSpeed.SetMagnitude(ballSpeed.Magnitude() + increment);
             if (ballSpeed.Magnitude() > ballMaxSpeed)
             {
                 ballSpeed.SetMagnitude(ballMaxSpeed);
@@ -99,7 +108,7 @@ void Game::Step()
         }
         else if (collide(other.getNext(), ball.getNext()))
         {
-            ballSpeed.SetMagnitude(ballSpeed.Magnitude() + 1.5f);
+            ballSpeed.SetMagnitude(ballSpeed.Magnitude() + increment);
             if (ballSpeed.Magnitude() > ballMaxSpeed)
             {
                 ballSpeed.SetMagnitude(ballMaxSpeed);

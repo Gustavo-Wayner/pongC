@@ -1,11 +1,12 @@
 #include "Structs.h"
 
 #pragma region Vector2
-float Vec2::Dot(Vec2 vecA, Vec2 vecB)
+float Vec2::Dot(const Vec2 &vecA, const Vec2 &vecB)
 {
     return vecA.x * vecB.x + vecA.y * vecB.y;
 }
-float Vec2::Angle(Vec2 vecA, Vec2 vecB)
+float Vec2::Magnitude() const { return sqrt(Dot(*this, *this)); }
+float Vec2::Angle(const Vec2 &vecA, const Vec2 &vecB)
 {
     return acos(Vec2::Dot(vecA, vecB) / (vecA.Magnitude() * vecB.Magnitude()));
 }
@@ -17,9 +18,7 @@ void Vec2::LimitMagnitude(Vec2 &vec, float max, float min)
         vec.SetMagnitude(min);
 }
 
-float Vec2::Magnitude() { return sqrt(Dot(*this, *this)); }
-
-Vec2 Vec2::GetUnitVector() { return *this / Magnitude(); }
+Vec2 Vec2::GetUnitVector() const { return *this / Magnitude(); }
 
 void Vec2::Normalize() { *this /= Magnitude(); }
 

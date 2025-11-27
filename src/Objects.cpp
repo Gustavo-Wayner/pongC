@@ -1,5 +1,4 @@
 #include "Objects.h"
-#include <iostream>
 
 Rect::Rect(Vec2 _position, double _Width, double _Height, Color _color) : Width(_Width), Height(_Height), position(this)
 {

@@ -6,10 +6,13 @@
 class GameObject
 {
 protected:
-    Vec2 Pos;
-    Rectangle hitbox;
+    Vec2 Pos = {0.0f, 0.0f};
+    Rectangle hitbox = {0, 0, 0, 0};
 
 public:
+    GameObject() = default;
+    GameObject(const GameObject &) = default;
+
     Color color;
     void Draw()
     {
@@ -38,20 +41,16 @@ private:
         float x;
         float y;
 
-        Position() = default;
-        Position(Rect *r)
-        {
-            parent = r;
-            x = parent->Pos.x;
-            y = parent->Pos.y;
-        }
+        Position() : parent(nullptr), x(0.0f), y(0.0f) {}
+
+        Position(Rect *r) : parent(r), x(r ? r->Pos.x : 0.0f), y(r ? r->Pos.y : 0.0f) {}
 
         operator Vec2() const
         {
             return parent->Pos;
         }
 
-        Position &operator=(Vec2 other)
+        Position &operator=(const Vec2 &other)
         {
             parent->Pos = other;
             x = parent->Pos.x;
@@ -61,7 +60,7 @@ private:
             return *this;
         }
 
-        Position &operator=(Position other)
+        Position &operator=(const Position &other)
         {
             parent->Pos = other;
             x = parent->Pos.x;
@@ -91,7 +90,7 @@ private:
 
             return *this;
         }
-        Position &operator+=(Vec2 other)
+        Position &operator+=(const Vec2 &other)
         {
             parent->Pos.x += other.x;
             parent->Pos.y += other.y;
@@ -101,7 +100,7 @@ private:
 
             return *this;
         }
-        Position &operator-=(Vec2 other)
+        Position &operator-=(const Vec2 &other)
         {
             parent->Pos.x -= other.x;
             parent->Pos.y -= other.y;
@@ -117,7 +116,7 @@ private:
             return {this->x - other[0], this->y - other[1]};
         }
 
-        Vec2 operator-(Vec2 other)
+        Vec2 operator-(const Vec2 &other)
         {
             return {this->x - other.x, this->y - other.y};
         }

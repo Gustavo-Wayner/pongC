@@ -1,7 +1,5 @@
 #include <raylib.h>
-#include <iostream>
 #include <ctime>
-#include <cstdlib>
 
 #include "Objects.h"
 #include "Rooms.h"
@@ -12,13 +10,15 @@ int main()
     InitWindow(900, 600, "Pong");
     SetTargetFPS(60);
 
-    global::manager.SwitchTo<Game>();
-    SetExitKey(KEY_F12);
+    global::manager.SwitchTo<MainMenu>();
+    SetExitKey(KEY_NULL);
+
     while (!WindowShouldClose())
     {
         global::manager.Update();
     }
 
-    CloseWindow();
+    if (!global::closed)
+        CloseWindow();
     return 0;
 }

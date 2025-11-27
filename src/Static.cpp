@@ -7,4 +7,5 @@ namespace global
     int ScreenWidth = 900;
     int ScreenHeight = 600;
     bool pressedNext = false;
+    bool closed = false;
 }

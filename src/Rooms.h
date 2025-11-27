@@ -48,13 +48,14 @@ struct Game : public Room
 {
     int player_score;
     int other_score;
-    float difficulty;
     Rect player;
     Rect other;
     Rect ball;
     Vec2 ballSpeed;
 
+    float increment;
     unsigned ballMaxSpeed;
+    float difficulty;
 
     Game();
 
