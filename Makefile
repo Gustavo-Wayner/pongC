@@ -23,6 +23,7 @@ CXXFLAGS := -std=c++11 -Wall -Wextra -O2 -I$(RAYLIB_INC) -I$(RAYLIB_EXT) -Wno-mi
 # ===========================
 ifeq ($(OS),Windows_NT)
     PLATFORM := WINDOWS
+    SHELL := cmd.exe
     MKDIR  = if not exist "$(dir $@)" mkdir "$(dir $@)"
     RMDIR  = rmdir /S /Q
 else
